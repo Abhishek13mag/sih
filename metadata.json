@@ -1,0 +1,6 @@
+{
+  "name": "FloodSense - AI Heavy Rainfall & Inundation Warning",
+  "description": "AI-based heavy rainfall early warning and flood inundation prediction system for Assam using Sentinel-5P CLOUD and GPM IMERG data with Gated Delta neural architecture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
