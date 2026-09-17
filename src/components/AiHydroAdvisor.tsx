@@ -31,7 +31,7 @@ export const AiHydroAdvisor: React.FC<AiHydroAdvisorProps> = ({ isOpen, onClose 
     {
       id: 'm-init',
       sender: 'assistant',
-      text: "Hello! I am your FloodSense AI Research & Hydro-Informatics Specialist. You can ask me technical details about our Sentinel-5P NetCDF ingestion, Gated Delta neural architecture, Assam master dataset statistics, or disaster mitigation protocols.",
+      text: "Hello! I am your FloodSense AI Research & Hydro-Informatics Specialist. You can ask me technical details regarding our Sentinel-5P NetCDF ingestion, Gated Delta neural architecture, Assam master dataset statistics, or disaster mitigation protocols.",
       timestamp: 'Just now',
       source: 'domain-scientific-engine'
     }
@@ -92,16 +92,16 @@ export const AiHydroAdvisor: React.FC<AiHydroAdvisorProps> = ({ isOpen, onClose 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[460px] bg-slate-950 border-l border-slate-800 shadow-2xl flex flex-col">
+    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[460px] bg-white border-l border-slate-200 shadow-xl flex flex-col">
       {/* Drawer Header */}
-      <div className="p-4 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between">
+      <div className="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-purple-950 border border-purple-600 flex items-center justify-center text-purple-400">
+          <div className="w-8 h-8 rounded-lg bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-700">
             <Sparkles className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-white font-display">AI Hydro Advisor</h3>
-            <span className="text-[10px] text-slate-400 font-mono">
+            <h3 className="text-sm font-bold text-slate-900 font-display">AI Hydro Advisor</h3>
+            <span className="text-[10px] text-slate-500 font-mono">
               SIH Technical & Hydrological Assistant
             </span>
           </div>
@@ -109,19 +109,19 @@ export const AiHydroAdvisor: React.FC<AiHydroAdvisorProps> = ({ isOpen, onClose 
 
         <button
           onClick={onClose}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+          className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-200/60 cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
       </div>
 
       {/* Suggested Quick Question Chips */}
-      <div className="p-3 bg-slate-900/50 border-b border-slate-800/80 overflow-x-auto no-scrollbar flex gap-2 text-[11px]">
+      <div className="p-3 bg-white border-b border-slate-100 overflow-x-auto scrollbar-none flex gap-2 text-[11px]">
         {quickPrompts.map((q, idx) => (
           <button
             key={idx}
             onClick={() => handleSendMessage(q)}
-            className="px-2.5 py-1 rounded-full bg-slate-950 border border-slate-700 text-slate-300 hover:border-cyan-500 hover:text-cyan-300 whitespace-nowrap transition-colors"
+            className="px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-700 hover:bg-blue-50/50 whitespace-nowrap transition-colors cursor-pointer"
           >
             {q}
           </button>
@@ -136,7 +136,7 @@ export const AiHydroAdvisor: React.FC<AiHydroAdvisorProps> = ({ isOpen, onClose 
             className={`flex gap-2.5 ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             {m.sender === 'assistant' && (
-              <div className="w-6 h-6 rounded-full bg-purple-950 border border-purple-700 text-purple-400 flex items-center justify-center shrink-0 mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-blue-100 border border-blue-200 text-blue-700 flex items-center justify-center shrink-0 mt-0.5">
                 <Bot className="w-3.5 h-3.5" />
               </div>
             )}
@@ -144,21 +144,21 @@ export const AiHydroAdvisor: React.FC<AiHydroAdvisorProps> = ({ isOpen, onClose 
             <div
               className={`max-w-[85%] p-3 rounded-xl border leading-relaxed ${
                 m.sender === 'user'
-                  ? 'bg-cyan-600 text-white border-cyan-500'
-                  : 'bg-slate-900 text-slate-200 border-slate-800'
+                  ? 'bg-blue-600 text-white border-blue-600'
+                  : 'bg-slate-50 text-slate-800 border-slate-200'
               }`}
             >
               <p className="whitespace-pre-wrap">{m.text}</p>
               <div className="flex items-center justify-between text-[9px] text-slate-400 mt-1.5 font-mono">
                 <span>{m.timestamp}</span>
                 {m.source && (
-                  <span className="text-purple-300 uppercase">{m.source}</span>
+                  <span className="text-blue-700 font-semibold uppercase">{m.source}</span>
                 )}
               </div>
             </div>
 
             {m.sender === 'user' && (
-              <div className="w-6 h-6 rounded-full bg-cyan-950 border border-cyan-700 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center shrink-0 mt-0.5">
                 <User className="w-3.5 h-3.5" />
               </div>
             )}
@@ -166,8 +166,8 @@ export const AiHydroAdvisor: React.FC<AiHydroAdvisorProps> = ({ isOpen, onClose 
         ))}
 
         {isLoading && (
-          <div className="flex gap-2.5 items-center text-slate-400 text-xs">
-            <div className="w-6 h-6 rounded-full bg-purple-950 border border-purple-700 text-purple-400 flex items-center justify-center shrink-0">
+          <div className="flex gap-2.5 items-center text-slate-500 text-xs">
+            <div className="w-6 h-6 rounded-full bg-blue-100 border border-blue-200 text-blue-700 flex items-center justify-center shrink-0">
               <Sparkles className="w-3.5 h-3.5 animate-spin" />
             </div>
             <span>Evaluating hydrological tensors & scientific context...</span>
@@ -176,7 +176,7 @@ export const AiHydroAdvisor: React.FC<AiHydroAdvisorProps> = ({ isOpen, onClose 
       </div>
 
       {/* Input Box */}
-      <div className="p-3 border-t border-slate-800 bg-slate-900/80">
+      <div className="p-3 border-t border-slate-200 bg-slate-50">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -189,12 +189,12 @@ export const AiHydroAdvisor: React.FC<AiHydroAdvisorProps> = ({ isOpen, onClose 
             value={inputQuery}
             onChange={(e) => setInputQuery(e.target.value)}
             placeholder="Ask anything about FloodSense AI..."
-            className="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 font-sans"
+            className="flex-1 bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 font-sans"
           />
           <button
             type="submit"
             disabled={!inputQuery.trim() || isLoading}
-            className="p-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 disabled:opacity-40 text-white transition-all shadow-md"
+            className="p-2 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white transition-colors shadow-xs cursor-pointer"
           >
             <Send className="w-4 h-4" />
           </button>

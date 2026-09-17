@@ -47,67 +47,72 @@ export const EarlyWarningCenter: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Top Banner */}
-      <div className="bg-slate-900/90 rounded-xl border border-slate-800 p-5 shadow-xl flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-rose-950/80 border border-rose-600 flex items-center justify-center text-rose-400">
+          <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-200 flex items-center justify-center text-red-700">
             <ShieldAlert className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base font-bold text-white font-display">
-              Disaster Management & Early Warning Dispatch Console
-            </h2>
-            <p className="text-xs text-slate-400">
-              Automated Standard Operating Procedure (SOP) triggers for ASDMA, NDRF, and District Commissioners
+            <div className="flex items-center gap-2">
+              <h2 className="text-base font-bold text-slate-900 font-display">
+                Disaster Mitigation & Early Warning Dispatch Console
+              </h2>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-red-50 text-red-800 border border-red-200 font-bold uppercase">
+                ASDMA / DEOC Level
+              </span>
+            </div>
+            <p className="text-xs text-slate-500">
+              Automated Standard Operating Procedure (SOP) dispatch triggers for District Emergency Operation Centers
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-emerald-400 flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-950/60 border border-emerald-800/80">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span className="text-xs font-mono text-emerald-800 flex items-center gap-1.5 px-3 py-1 rounded bg-emerald-50 border border-emerald-200 font-semibold">
+            <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
             CAP-CP Alert Protocol Ready
           </span>
         </div>
       </div>
 
       {/* Main Alert Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Alerts List on Left */}
-        <div className="lg:col-span-4 space-y-3">
-          <div className="flex items-center justify-between text-xs font-semibold text-slate-400 px-1">
-            <span>Active Rainfall Alert Zones</span>
-            <span className="font-mono text-cyan-400">{broadcasts.length} Active</span>
+        <div className="lg:col-span-4 space-y-2.5">
+          <div className="flex items-center justify-between text-xs font-bold text-slate-700 px-1">
+            <span>High Risk Inundation Basins</span>
+            <span className="font-mono text-blue-700">{broadcasts.length} Active Directives</span>
           </div>
 
           {broadcasts.map((alert) => (
             <div
               key={alert.id}
               onClick={() => setActiveBroadcastId(alert.id)}
-              className={`p-4 rounded-xl border cursor-pointer transition-all ${
+              className={`p-4 rounded-xl border cursor-pointer transition-colors ${
                 activeBroadcastId === alert.id
-                  ? 'bg-slate-900 border-rose-500 shadow-lg shadow-rose-950/30'
-                  : 'bg-slate-950/80 border-slate-800 hover:bg-slate-900/60 hover:border-slate-700'
+                  ? 'bg-red-50/50 border-red-300 shadow-xs'
+                  : 'bg-white border-slate-200 hover:bg-slate-50'
               }`}
             >
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-sm font-bold text-white font-display">{alert.district}</span>
+                <span className="text-sm font-bold text-slate-900 font-display">{alert.district}</span>
                 <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold uppercase ${
                   alert.severity === 'catastrophic'
-                    ? 'bg-pink-950 text-pink-300 border border-pink-700'
-                    : 'bg-red-950 text-red-300 border border-red-700'
+                    ? 'bg-red-100 text-red-800 border border-red-300'
+                    : 'bg-orange-100 text-orange-800 border border-orange-300'
                 }`}>
                   {alert.severity}
                 </span>
               </div>
 
-              <div className="flex items-center justify-between text-xs text-slate-400 mb-2 font-mono">
-                <span>Forecast: <strong className="text-white">{alert.rainfallForecast} mm/day</strong></span>
-                <span className="text-rose-400 font-semibold">{alert.thresholdExceeded}</span>
+              <div className="flex items-center justify-between text-xs text-slate-600 mb-2 font-mono">
+                <span>Forecast: <strong className="text-slate-900">{alert.rainfallForecast} mm/day</strong></span>
+                <span className="text-red-700 font-semibold">{alert.thresholdExceeded}</span>
               </div>
 
-              <div className="text-[11px] text-slate-500 flex items-center gap-2 border-t border-slate-800/80 pt-2">
+              <div className="text-[11px] text-slate-500 flex items-center gap-2 border-t border-slate-100 pt-2">
                 <Clock className="w-3 h-3 text-slate-400" />
                 <span>Issued: {alert.issuedAt}</span>
               </div>
@@ -115,40 +120,40 @@ export const EarlyWarningCenter: React.FC = () => {
           ))}
         </div>
 
-        {/* Selected Alert Details & Mitigation Actions on Right */}
-        <div className="lg:col-span-8 bg-slate-900/90 rounded-xl border border-slate-800 p-6 shadow-xl space-y-5">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        {/* Selected Alert Details on Right */}
+        <div className="lg:col-span-8 bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-5">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4">
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono text-cyan-400">{activeAlert.id}</span>
-                <span className="text-slate-600">•</span>
-                <span className="text-xs text-slate-400">{activeAlert.thresholdExceeded}</span>
+                <span className="text-xs font-mono text-blue-700 font-semibold">{activeAlert.id}</span>
+                <span className="text-slate-300">•</span>
+                <span className="text-xs text-slate-500">{activeAlert.thresholdExceeded}</span>
               </div>
-              <h3 className="text-xl font-extrabold text-white mt-0.5 font-display">
-                {activeAlert.district} Flood Emergency Directive
+              <h3 className="text-xl font-bold text-slate-900 mt-0.5 font-display">
+                {activeAlert.district} District Flood Directive
               </h3>
             </div>
 
             <div className="text-right">
-              <span className="text-[10px] text-slate-400 block">Est. Population at Risk</span>
-              <span className="text-lg font-black text-rose-400 font-mono">
-                {activeAlert.affectedPopulationEstimate.toLocaleString()} People
+              <span className="text-[10px] text-slate-500 block font-medium uppercase">Est. Exposed Population</span>
+              <span className="text-xl font-extrabold text-red-600 font-mono">
+                {activeAlert.affectedPopulationEstimate.toLocaleString()} Residents
               </span>
             </div>
           </div>
 
-          {/* Vulnerable Zones Tag Grid */}
+          {/* Vulnerable Zones */}
           <div>
-            <span className="text-xs font-semibold text-slate-300 block mb-2">
-              High Inundation Risk Lowlands & Chars:
+            <span className="text-xs font-bold text-slate-800 block mb-2">
+              Critical Lowland Chars & Embankment Zones:
             </span>
             <div className="flex flex-wrap gap-2">
               {activeAlert.inundationRiskZones.map((zone, idx) => (
                 <span 
                   key={idx}
-                  className="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-700 text-cyan-300 text-xs font-mono flex items-center gap-1.5"
+                  className="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 text-xs font-medium flex items-center gap-1.5"
                 >
-                  <Waves className="w-3 h-3 text-cyan-400" />
+                  <Waves className="w-3 h-3 text-blue-600" />
                   {zone}
                 </span>
               ))}
@@ -157,16 +162,16 @@ export const EarlyWarningCenter: React.FC = () => {
 
           {/* Actionable SOP Protocol Items */}
           <div className="space-y-2.5">
-            <span className="text-xs font-semibold text-slate-300 block">
-              Automated SOP Emergency Directives:
+            <span className="text-xs font-bold text-slate-800 block">
+              Standard Operating Procedures (SOP) Action Matrix:
             </span>
             <div className="space-y-2">
               {activeAlert.recommendedActions.map((action, idx) => (
                 <div 
                   key={idx}
-                  className="bg-slate-950 p-3 rounded-lg border border-slate-800/90 text-xs text-slate-200 flex items-start gap-2.5"
+                  className="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs text-slate-800 flex items-start gap-2.5"
                 >
-                  <span className="w-5 h-5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-700/60 flex items-center justify-center font-bold text-[11px] shrink-0 mt-0.5">
+                  <span className="w-5 h-5 rounded-full bg-blue-100 text-blue-800 border border-blue-300 flex items-center justify-center font-bold text-[11px] shrink-0 mt-0.5">
                     {idx + 1}
                   </span>
                   <span className="leading-relaxed">{action}</span>
@@ -176,11 +181,11 @@ export const EarlyWarningCenter: React.FC = () => {
           </div>
 
           {/* Multi-lingual Public SMS / Siren Broadcast Preview */}
-          <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                <Megaphone className="w-3.5 h-3.5 text-amber-400" />
-                Public Disaster Warning Broadcast Broadcast (SMS / Siren)
+              <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                <Megaphone className="w-3.5 h-3.5 text-blue-700" />
+                Public Broadcast Preview (SMS & Siren Push)
               </span>
 
               {/* Language Switcher */}
@@ -189,10 +194,10 @@ export const EarlyWarningCenter: React.FC = () => {
                   <button
                     key={lang}
                     onClick={() => setSelectedLanguage(lang)}
-                    className={`px-2 py-0.5 rounded transition-colors ${
+                    className={`px-2.5 py-0.5 rounded transition-colors cursor-pointer ${
                       selectedLanguage === lang
-                        ? 'bg-amber-500 text-slate-950 font-bold'
-                        : 'bg-slate-900 text-slate-400 hover:text-slate-200'
+                        ? 'bg-blue-600 text-white font-bold'
+                        : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
                     }`}
                   >
                     {lang}
@@ -201,11 +206,11 @@ export const EarlyWarningCenter: React.FC = () => {
               </div>
             </div>
 
-            <p className="text-xs text-slate-300 leading-relaxed font-sans bg-slate-900/70 p-3 rounded-lg border border-slate-800/80 italic">
+            <p className="text-xs text-slate-800 leading-relaxed font-sans bg-white p-3 rounded-lg border border-slate-200 italic">
               "{getLanguageAdvisory()}"
             </p>
 
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
               <span className="text-[11px] text-slate-500">
                 Connected to National Emergency Communication Network (NECN)
               </span>
@@ -213,11 +218,11 @@ export const EarlyWarningCenter: React.FC = () => {
               <button
                 onClick={handleSimulateDispatch}
                 disabled={isDispatching}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-lg shadow-rose-950/50 transition-all active:scale-95 disabled:opacity-50"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold text-xs shadow-xs transition-colors cursor-pointer disabled:opacity-50"
               >
                 {isDispatching ? (
                   <>
-                    <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                    <span className="w-3 h-3 border-2 border-white/40 border-t-white rounded-full animate-spin"></span>
                     <span>Broadcasting CAP Alert...</span>
                   </>
                 ) : dispatchedSuccess ? (
@@ -228,7 +233,7 @@ export const EarlyWarningCenter: React.FC = () => {
                 ) : (
                   <>
                     <Send className="w-3.5 h-3.5" />
-                    <span>Trigger Emergency Telemetry Broadcast</span>
+                    <span>Trigger Telemetry Emergency Push</span>
                   </>
                 )}
               </button>

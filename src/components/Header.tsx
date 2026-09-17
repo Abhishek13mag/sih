@@ -2,15 +2,18 @@ import React from 'react';
 import { 
   CloudRain, 
   Satellite, 
-  Cpu, 
+  Play, 
+  Sparkles, 
+  Map, 
+  Sliders, 
   Database, 
   Presentation, 
   ShieldAlert, 
-  Compass, 
-  Play, 
+  Compass,
+  CheckCircle2,
+  HelpCircle,
   Activity,
-  BotMessageSquare,
-  Sparkles
+  Layers
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -28,185 +31,132 @@ export const Header: React.FC<HeaderProps> = ({
   isSimulating,
   onRunSimulation,
   onToggleAiAdvisor,
-  isAiAdvisorOpen
+  isAiAdvisorOpen,
 }) => {
-  return (
-    <header className="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
-      {/* Top Banner with SIH Metadata & Live Telemetry */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/60 text-xs">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-700/60 text-cyan-300 font-mono font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-            SIH Problem: SIH26071
-          </div>
-          <span className="text-slate-400 hidden sm:inline">|</span>
-          <span className="text-slate-300 font-semibold tracking-wide hidden sm:inline">Team: Aqua Sentinel</span>
-          <span className="text-slate-500 hidden md:inline">•</span>
-          <span className="text-emerald-400 hidden md:inline">Theme: Disaster Management</span>
-        </div>
+  const tabs = [
+    { id: 'monitoring', label: 'Spatial Grid & Map', icon: Map, badge: '718 Cells' },
+    { id: 'gated_delta', label: 'Gated Delta AI Lab', icon: Sliders, badge: 'PyTorch' },
+    { id: 'pipeline', label: 'Data Pipeline', icon: Database, badge: '262k Recs' },
+    { id: 'presentation', label: 'Presentation Slides', icon: Presentation, badge: '6 Slides' },
+    { id: 'early_warning', label: 'Emergency Alerts', icon: ShieldAlert, badge: 'ASDMA/IMD' },
+    { id: 'roadmap', label: 'Hydraulic Roadmap', icon: Compass, badge: 'HEC-RAS' },
+  ];
 
-        <div className="flex items-center gap-4 font-mono text-[11px]">
-          <div className="flex items-center gap-1.5 text-slate-300">
-            <Satellite className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Sentinel-5P CLOUD: <strong className="text-cyan-300">NetCDF L2 OFFL</strong></span>
+  return (
+    <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+      {/* Top Institutional Metadata Bar */}
+      <div className="bg-slate-900 text-slate-200 text-xs px-4 sm:px-6 lg:px-8 py-1.5 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5">
+            <span className="inline-flex items-center px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-blue-900/60 text-blue-300 border border-blue-700/50">
+              SIH26071
+            </span>
+            <span className="text-slate-400">Team Aqua Sentinel</span>
+            <span className="text-slate-600">•</span>
+            <span className="text-slate-300 font-medium">Assam Hydrological Early Warning System</span>
           </div>
-          <span className="text-slate-700">/</span>
-          <div className="flex items-center gap-1.5 text-slate-300">
-            <CloudRain className="w-3.5 h-3.5 text-blue-400" />
-            <span>GPM IMERG: <strong className="text-blue-300">2024 Daily 0.1°</strong></span>
-          </div>
-          <span className="text-slate-700 hidden lg:inline">/</span>
-          <div className="items-center gap-1 text-slate-400 hidden lg:flex">
-            <Activity className="w-3 h-3 text-emerald-400" />
-            <span>Assam Domain: <strong className="text-emerald-300">718 Grid Cells</strong></span>
+
+          <div className="flex items-center gap-4 text-[11px] font-mono">
+            <span className="flex items-center gap-1.5 text-emerald-400">
+              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+              Operational Telemetry Active
+            </span>
+            <span className="text-slate-500">|</span>
+            <span className="text-slate-400">Sentinel-5P CLOUD + GPM IMERG 2024</span>
           </div>
         </div>
       </div>
 
-      {/* Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
-        {/* Brand & Project Identity */}
+      {/* Main App Title & Operational Controls */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+        {/* Logo & System Identity */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-700 flex items-center justify-center shadow-lg shadow-cyan-950/50 ring-1 ring-cyan-400/40">
-            <CloudRain className="w-6 h-6 text-white" />
+          <div className="w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center shadow-sm">
+            <CloudRain className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-lg font-bold text-white tracking-tight font-display">
-                FloodSense <span className="text-cyan-400 font-normal text-sm ml-1 px-1.5 py-0.5 rounded bg-cyan-950/60 border border-cyan-800/80">AI Early Warning</span>
+              <h1 className="text-lg font-bold text-slate-900 tracking-tight font-display">
+                FloodSense
               </h1>
+              <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 font-mono">
+                v2.4 Production
+              </span>
             </div>
-            <p className="text-[11px] text-slate-400">
-              Assam Hydrological Heavy Rainfall & Inundation Prediction System
+            <p className="text-xs text-slate-500 font-normal">
+              AI-Based Heavy Rainfall Early Warning & Basin Inundation Intelligence
             </p>
           </div>
         </div>
 
-        {/* Global Simulation & AI Advisor Action Buttons */}
+        {/* Action Buttons */}
         <div className="flex items-center gap-2.5">
           <button
-            id="btn-run-simulation"
+            id="btn-run-satellite-pass"
             onClick={onRunSimulation}
             disabled={isSimulating}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg font-medium text-xs transition-all shadow-md ${
-              isSimulating
-                ? 'bg-cyan-900/50 text-cyan-200 border border-cyan-700/60 cursor-wait'
-                : 'bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white shadow-cyan-900/30 active:scale-95'
-            }`}
+            className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs shadow-xs transition-colors active:scale-98 disabled:opacity-60 cursor-pointer"
           >
             {isSimulating ? (
               <>
-                <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                <span>Inferring Gated Delta...</span>
+                <span className="w-3.5 h-3.5 border-2 border-white/40 border-t-white rounded-full animate-spin"></span>
+                <span>Ingesting Sentinel Overpass...</span>
               </>
             ) : (
               <>
-                <Play className="w-3.5 h-3.5 fill-current" />
+                <Play className="w-3.5 h-3.5 fill-white" />
                 <span>Run Overpass Inference</span>
               </>
             )}
           </button>
 
           <button
-            id="btn-ai-advisor-toggle"
+            id="btn-toggle-ai-advisor"
             onClick={onToggleAiAdvisor}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${
+            className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium border transition-colors cursor-pointer ${
               isAiAdvisorOpen
-                ? 'bg-purple-950 text-purple-200 border-purple-600'
-                : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-700'
+                ? 'bg-slate-100 border-slate-300 text-slate-900'
+                : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900'
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-            <span className="hidden sm:inline">AI Hydro Advisor</span>
+            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+            <span>AI Hydro Advisor</span>
           </button>
         </div>
       </div>
 
-      {/* Segmented Navigation Tabs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav className="flex items-center gap-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-1.5 text-xs font-medium">
-          <button
-            id="nav-tab-monitoring"
-            onClick={() => setActiveTab('monitoring')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg whitespace-nowrap transition-all ${
-              activeTab === 'monitoring'
-                ? 'bg-cyan-500/15 text-cyan-300 font-semibold border border-cyan-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
-            }`}
-          >
-            <Activity className="w-3.5 h-3.5" />
-            <span>Assam Spatial Grid (718 Cells)</span>
-            <span className="ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-cyan-900/60 text-cyan-300 font-mono">Live</span>
-          </button>
-
-          <button
-            id="nav-tab-gated-delta"
-            onClick={() => setActiveTab('gated_delta')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg whitespace-nowrap transition-all ${
-              activeTab === 'gated_delta'
-                ? 'bg-cyan-500/15 text-cyan-300 font-semibold border border-cyan-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
-            }`}
-          >
-            <Cpu className="w-3.5 h-3.5" />
-            <span>Gated Delta AI Model</span>
-            <span className="ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-slate-800 text-slate-300 font-mono">5,646×11</span>
-          </button>
-
-          <button
-            id="nav-tab-data-pipeline"
-            onClick={() => setActiveTab('pipeline')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg whitespace-nowrap transition-all ${
-              activeTab === 'pipeline'
-                ? 'bg-cyan-500/15 text-cyan-300 font-semibold border border-cyan-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
-            }`}
-          >
-            <Database className="w-3.5 h-3.5" />
-            <span>Data Journey & 262k Dataset</span>
-          </button>
-
-          <button
-            id="nav-tab-presentation"
-            onClick={() => setActiveTab('presentation')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg whitespace-nowrap transition-all ${
-              activeTab === 'presentation'
-                ? 'bg-amber-500/15 text-amber-300 font-semibold border border-amber-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
-            }`}
-          >
-            <Presentation className="w-3.5 h-3.5 text-amber-400" />
-            <span className="text-amber-300 font-semibold">SIH 6-Slide Pictorial Deck</span>
-            <span className="ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-amber-950 border border-amber-700/50 text-amber-300 font-mono">Infographic</span>
-          </button>
-
-          <button
-            id="nav-tab-early-warning"
-            onClick={() => setActiveTab('early_warning')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg whitespace-nowrap transition-all ${
-              activeTab === 'early_warning'
-                ? 'bg-rose-500/15 text-rose-300 font-semibold border border-rose-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
-            }`}
-          >
-            <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />
-            <span>Early Warning & Mitigation</span>
-            <span className="ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-rose-950 border border-rose-800 text-rose-300 font-mono">IMD Alert</span>
-          </button>
-
-          <button
-            id="nav-tab-future-roadmap"
-            onClick={() => setActiveTab('roadmap')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg whitespace-nowrap transition-all ${
-              activeTab === 'roadmap'
-                ? 'bg-cyan-500/15 text-cyan-300 font-semibold border border-cyan-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
-            }`}
-          >
-            <Compass className="w-3.5 h-3.5" />
-            <span>Future Flood Inundation</span>
-            <span className="ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-slate-800 text-slate-400 font-mono">HEC-RAS</span>
-          </button>
+      {/* Navigation Tabs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200">
+        <nav className="flex space-x-1 overflow-x-auto py-1 scrollbar-none" aria-label="Tabs">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 py-2.5 px-3.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
+                  isActive
+                    ? 'bg-slate-100 text-blue-700 font-semibold shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                }`}
+              >
+                <Icon className={`w-4 h-4 ${isActive ? 'text-blue-600' : 'text-slate-400'}`} />
+                <span>{tab.label}</span>
+                {tab.badge && (
+                  <span
+                    className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
+                      isActive
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-slate-100 text-slate-500'
+                    }`}
+                  >
+                    {tab.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </nav>
       </div>
     </header>

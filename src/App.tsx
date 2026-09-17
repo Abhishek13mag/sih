@@ -44,7 +44,6 @@ export default function App() {
     setSimulationNotice('Acquiring latest Sentinel-5P Level-2 NetCDF swath & running Gated Delta tensor inference...');
 
     setTimeout(() => {
-      // Pick another high-activity date or re-trigger calculation
       setSelectedDate('2024-07-02');
       setIsSimulating(false);
       setSimulationNotice('Gated Delta Inference complete: 718 spatial cells updated. 88 cells triggered Very Heavy/Extreme warning.');
@@ -53,7 +52,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-cyan-500 selection:text-slate-950 font-sans">
+    <div className="min-h-screen bg-slate-100/70 text-slate-900 flex flex-col font-sans">
       {/* App Header & Navigation */}
       <Header
         activeTab={activeTab}
@@ -66,16 +65,16 @@ export default function App() {
 
       {/* Simulation Feedback Toast */}
       {simulationNotice && (
-        <div className="bg-cyan-950/90 border-b border-cyan-800 text-cyan-200 px-4 py-2 text-xs font-mono flex items-center justify-between animate-fadeIn">
+        <div className="bg-blue-50 border-b border-blue-200 text-blue-900 px-4 py-2 text-xs font-mono flex items-center justify-between">
           <div className="max-w-7xl mx-auto flex items-center gap-2 w-full">
-            <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
+            <Sparkles className="w-4 h-4 text-blue-600 shrink-0" />
             <span>{simulationNotice}</span>
           </div>
         </div>
       )}
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5">
         {activeTab === 'monitoring' && (
           <AssamMapViewer
             cells={cells}
@@ -103,25 +102,25 @@ export default function App() {
         onClose={() => setIsAiAdvisorOpen(false)}
       />
 
-      {/* Footer */}
-      <footer className="mt-auto border-t border-slate-900 bg-slate-950/80 py-4 text-xs text-slate-500">
+      {/* Institutional Footer */}
+      <footer className="mt-auto border-t border-slate-200 bg-white py-4 text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-400 font-display">FloodSense System</span>
+            <span className="font-bold text-slate-800 font-display">FloodSense Hydro-Informatics Portal</span>
             <span>•</span>
-            <span>SIH26071</span>
+            <span className="font-mono text-slate-600">SIH26071</span>
             <span>•</span>
             <span>Team Aqua Sentinel</span>
             <span>•</span>
-            <span className="text-slate-400">Assam Hydrological Domain</span>
+            <span className="text-slate-600">Assam River Basin Operational Area</span>
           </div>
 
-          <div className="flex items-center gap-4 text-[11px] font-mono">
-            <span>Sentinel-5P CLOUD + GPM IMERG</span>
+          <div className="flex items-center gap-3 text-[11px] font-mono text-slate-500">
+            <span>Sentinel-5P CLOUD & GPM IMERG 2024</span>
             <span>•</span>
-            <span className="text-cyan-400">Gated Delta Architecture</span>
+            <span className="text-blue-700 font-semibold">Gated Delta Neural Model</span>
             <span>•</span>
-            <span>HEC-RAS 2D (Future Horizon)</span>
+            <span>Future: HEC-RAS 2D & Sentinel-1 SAR</span>
           </div>
         </div>
       </footer>
